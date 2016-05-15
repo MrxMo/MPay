@@ -1,42 +1,57 @@
-#MPay
+package com.mrmo.mpay;
 
-***
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-安卓第三方支付库，默认整合了支付宝、微信支付功能。
-<br/><br/>
+import com.mrmo.mpaylib.MPayAli;
+import com.mrmo.mpaylib.MPayBridge;
+import com.mrmo.mpaylib.MPayConfig;
+import com.mrmo.mpaylib.MPayListener;
+import com.mrmo.mpaylib.MPayWeChat;
+import com.mrmo.mpaylib.model.MPayAliModel;
+import com.mrmo.mpaylib.model.MPayModel;
+import com.mrmo.mpaylib.model.MPayWeChatModel;
+import com.mrmo.mpaylib.util.MWeChatListenerUtil;
 
-## 支持
-***
-Android 2.2+
-<br/><br/>
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-## 混淆
-***
-#### 支付宝支付
--libraryjars libs/alipaySdk-20160427.jar
+    private TextView tvAliPay;
+    private TextView tvWeChatPay;
 
--keep class com.alipay.android.app.IAlixPay{*;}
--keep class com.alipay.android.app.IAlixPay$Stub{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback{*;}
--keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
--keep class com.alipay.sdk.app.PayTask{ public *;}
--keep class com.alipay.sdk.app.AuthTask{ public *;}
-<br/>
+    private MPayBridge mPayBridge;
+
+    private void assignViews() {
+        tvAliPay = (TextView) findViewById(R.id.tvAliPay);
+        tvWeChatPay = (TextView) findViewById(R.id.tvWeChatPay);
+
+        tvAliPay.setOnClickListener(this);
+        tvWeChatPay.setOnClickListener(this);
+    }
 
 
-#### 微信支付
--libraryjars libs/libammsdk.jar
-<br/><br/>
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-## 使用
-***
-* 实例化MPayBridge
+        assignViews();
 
-`		
+        initMPay();
+    }
 
-        private void initMPay() {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPayBridge.removeOnPayListener();
+    }
+
+    private void initMPay() {
         //只在支付宝支付起作用：设置是本地签名还是服务器签名
         MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;
+
         mPayBridge = new MPayBridge(this);
         mPayBridge.setOnPayListener(new MPayListener() {
             @Override
@@ -65,15 +80,14 @@ Android 2.2+
             }
         });
     }
-`
 
 
-* 支付宝 <br/>
-MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用：设置是本地签名还是服务器签名
-        
-`
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvAliPay:
                 mPayBridge.setmPayAble(new MPayAli(this));
+
                 //手动签名
                 MPayAliModel mPayAliModel = new MPayAliModel();
                 mPayAliModel.setOrderId("商户网站唯一订单号");
@@ -85,28 +99,13 @@ MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用�
                 mPayAliModel.setPartnerId("签约合作者身份ID");
                 mPayAliModel.setSeller("签约卖家支付宝账号");
                 mPayAliModel.setRsaPrivateKey("商户私钥，pkcs8格式");
-                
-                //                mPayAliModel.setPayInfo("服务器直接返回签名的信息");
+
+//                mPayAliModel.setPayInfo("服务器直接返回签名的信息");
                 mPayBridge.setPayParam(mPayAliModel);
-                mPayBridge.pay();                
-`
+                mPayBridge.pay();
+                break;
 
-* 微信
-<br/>
-1) 先到[微信开发平台](https://open.weixin.qq.com "微信开发平台")注册相关信息，应用签名与包名必须注册[微信支付集成说明](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_5 "微信支付集成说明")。<br/>
-2) 在注册的包名下创建包“wxapi”，然后创建类“WXPayEntryActivity”，并继承“MWeChatPayResultActivity”<br/>
-3) 在AndroidManifest.xml添加<br/>
-`		<activity
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop"/>
-`
-
-4) 在onDestroy方法中将监听器移除 <br/>
-`mPayBridge.removeOnPayListener();`
-
-`
-
+            case R.id.tvWeChatPay:
                 mPayBridge.setmPayAble(new MPayWeChat(this));
                 MPayWeChatModel mPayWeChatModel = new MPayWeChatModel();
                 mPayWeChatModel.setAppId("wxd930ea5d5a258f4f");
@@ -115,17 +114,10 @@ MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用�
                 mPayWeChatModel.setNonceStr("1101000000140429eb40476f8896f4c9");
                 mPayWeChatModel.setPackageValue("Sign=WXPay");
                 mPayWeChatModel.setTimeStamp("1398746574" + "");
-                						mPayWeChatModel.setSign("7FFECB600D7157C5AA49810D2D8F28BC2811827B");
+                mPayWeChatModel.setSign("7FFECB600D7157C5AA49810D2D8F28BC2811827B");
                 mPayBridge.setPayParam(mPayWeChatModel);
-                mPayBridge.pay();                
-`
-
-<br/><br/>
-
-## 作者
-***
-莫先生 Mr-Mo 
-
-
-
- 
+                mPayBridge.pay();
+                break;
+        }
+    }
+}
