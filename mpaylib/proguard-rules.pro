@@ -17,8 +17,8 @@
 #}
 
 # 支付宝支付
--libraryjars libs/alipaySdk-20160427.jar
-
+#-libraryjars libs/alipaySdk-20160427.jar
+-dontwarn com.alipay.**
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IAlixPay$Stub{*;}
 -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
@@ -27,4 +27,12 @@
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
 
 # 微信支付
--libraryjars libs/libammsdk.jar
+#-libraryjars libs/libammsdk.jar
+-dontwarn com.tencent.**
+
+# Mpay
+#-keep class MPayConfig
+#-keep public class * class com.mrmo.mpaylib.model.** {*;}                                  #保持某包下类的所有子类
+#-keep public interface com.mrmo.mpaylib.** {*;}                                   #保持某包下接口的所有子类
+#
+#-keep public class extends com.mrmo.mpaylib.MWeChatPayResultActivity # 保持哪些类不被混淆

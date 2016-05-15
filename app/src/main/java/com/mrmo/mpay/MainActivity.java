@@ -1,7 +1,7 @@
 package com.mrmo.mpay;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,9 +12,7 @@ import com.mrmo.mpaylib.MPayConfig;
 import com.mrmo.mpaylib.MPayListener;
 import com.mrmo.mpaylib.MPayWeChat;
 import com.mrmo.mpaylib.model.MPayAliModel;
-import com.mrmo.mpaylib.model.MPayModel;
 import com.mrmo.mpaylib.model.MPayWeChatModel;
-import com.mrmo.mpaylib.util.MWeChatListenerUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
