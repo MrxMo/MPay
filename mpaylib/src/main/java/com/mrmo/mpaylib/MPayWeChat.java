@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.mrmo.mpaylib.model.MPayModel;
 import com.mrmo.mpaylib.model.MPayWeChatModel;
 import com.mrmo.mpaylib.observer.MWeChatObserverAble;
+import com.mrmo.mpaylib.util.MWeChatListenerUtil;
 import com.tencent.mm.sdk.constants.Build;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -60,16 +61,26 @@ public class MPayWeChat implements MPayAble, MWeChatObserverAble {
     public void pay() {
         if (mPayModel == null) {
             Toast.makeText(context, "订单信息异常", Toast.LENGTH_SHORT).show();
+            MWeChatListenerUtil.instance().notifyPayFailure("订单信息异常");
+            return;
+        }
+
+        if (iwxapi == null) {
+            Log.e(TAG, "iwxapi is null ! iwxapi instance is failure !");
+            Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
+            MWeChatListenerUtil.instance().notifyPayFailure("支付失败");
             return;
         }
 
         if (!isInstalled()) {
             Toast.makeText(context, "未安装微信或微信版本过低", Toast.LENGTH_SHORT).show();
+            MWeChatListenerUtil.instance().notifyPayFailure("未安装微信或微信版本过低");
             return;
         }
 
         if (!isPaySupported()) {
             Toast.makeText(context, "当前微信版本不支持支付功能", Toast.LENGTH_SHORT).show();
+            MWeChatListenerUtil.instance().notifyPayFailure("当前微信版本不支持支付功能");
             return;
         }
 
@@ -109,7 +120,7 @@ public class MPayWeChat implements MPayAble, MWeChatObserverAble {
 
         } catch (Exception e) {
             Log.e(TAG, "error：" + e.getMessage());
-            Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
+            MWeChatListenerUtil.instance().notifyPayFailure("支付失败");
         }
     }
 
