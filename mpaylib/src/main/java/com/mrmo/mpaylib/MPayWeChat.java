@@ -65,7 +65,7 @@ public class MPayWeChat implements MPayAble, MWeChatObserverAble {
             return;
         }
 
-        if (iwxapi == null) {
+        if (getIwxapiInstance() == null) {
             Log.e(TAG, "iwxapi is null ! iwxapi instance is failure !");
             Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
             MWeChatListenerUtil.instance().notifyPayFailure("支付失败");
