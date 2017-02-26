@@ -13,17 +13,6 @@ public class MPayAliModel extends MPayModel {
 
     /** 本地签名相关参数 **/
 
-//                Test data
-//                String orderId = "14533442953080420";
-//                String productName = "用户支付买手服务";
-//                String productInfo = "买手服务费用";
-//                String price = "0.01";
-//                String notifyUrl = "http://pay.mmcmmc.net.cn/index.php";
-//                String shopId = "2088121821333471";
-//                String shopAccount = "zfmmcmmc@126.com";
-//                String rsaKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALtkKaG8Hc+qYCKmoDqRsqWHNfEQySFRLTlmPUA5pi0SG8/sAvT9Ct8oSTn0xhTTvNdq8PCfJnKRm6/89VVDQpzIEx2rJqF8o0dHdBBxu+sdkbxcg5ME48oxi+1jmYCpEXoPPOnJ8wKZRepcTXiS01IR8RUJddXcRr/BRuHLmqVHAgMBAAECgYB+uZ3t4mnGplGdHVH+ScmmZ2nzPIbIIT2UM6/4XwQiNrzYP6NASl+vym664u2R6B8tDwUhtH8ru4yt10OSBYplkxK0jOwfv0ti4YgdPPzHz/4kmjOyaZvrw5Z+gyYtRkjJTYMsazeKh01HU3tagqWEJyTx8L0v4IdegzMwQD8KAQJBAO6s5aG/ncMbvA9dhUP41aNKDxarOQ6YcTTl9AE9Q77H0VuD1Cdl9T6DVY+Y32wZatEDvof9lmW/iNEiEDEnUJkCQQDI/kvRBebS+QWBxlTOmvJI5NrJfnKPoG8rlYLwqHsiKoQpBdO/6tLz2lc+jMcApkVymImUmv5p0zA5DWq4rPDfAkEAjIYrpXImNsvLi9hqMDz/u+ZMv/IL4/YJITYK1ff2PQt0zkbt0EyNekLlS2ickw7b/zgPJA5AUKPWsBs4IViecQJAMmtYKX8JgDLnpr5R1+IWlSKTn6gQpObh/FTtG+GnwdJYhNHpZGNLt9A1woMeCJOtKCoLmTOoTnOjzSwIcXswkQJAZP3ICj5PgATo2wSMIgyQseJo2iyesFUnho56NBrxzP7lyPp8eYqFa4BpYsp5peM2PDWd7pHEhKsNm4LqqZNBWA==";
-//
-
     private String partnerId;           // 签约合作者身份ID
     private String seller;              // 签约卖家支付宝账号
     private String rsaPrivateKey;       // 商户私钥，pkcs8格式

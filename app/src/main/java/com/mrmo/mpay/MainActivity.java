@@ -106,13 +106,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tvWeChatPay:
                 mPayBridge.setmPayAble(new MPayWeChat(this));
                 MPayWeChatModel mPayWeChatModel = new MPayWeChatModel();
-                mPayWeChatModel.setAppId("wxd930ea5d5a258f4f");
-                mPayWeChatModel.setPartnerId("1900000109");
-                mPayWeChatModel.setPrepayId("1101000000140415649af9fc314aa427");
-                mPayWeChatModel.setNonceStr("1101000000140429eb40476f8896f4c9");
+                mPayWeChatModel.setAppId("appId");
+                mPayWeChatModel.setPartnerId("partnerId");
+                mPayWeChatModel.setPrepayId("prepayId");
+                mPayWeChatModel.setNonceStr("nonceStr");
                 mPayWeChatModel.setPackageValue("Sign=WXPay");
-                mPayWeChatModel.setTimeStamp("1398746574" + "");
-                mPayWeChatModel.setSign("7FFECB600D7157C5AA49810D2D8F28BC2811827B");
+                mPayWeChatModel.setTimeStamp("timeStamp");
+                mPayWeChatModel.setSign("sign");
                 mPayBridge.setPayParam(mPayWeChatModel);
                 mPayBridge.pay();
                 break;
