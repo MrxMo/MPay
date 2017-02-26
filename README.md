@@ -1,17 +1,12 @@
-#MPay
-
-***
-
+# MPay
 安卓第三方支付库，默认整合了支付宝、微信支付功能。
-<br/><br/>
+<br/>
 
 ## 支持
-***
 Android 2.2+
-<br/><br/>
+<br/>
 
 ## 混淆
-***
 #### 支付宝支付
 -libraryjars libs/alipaySdk-20160427.jar
 
@@ -23,17 +18,14 @@ Android 2.2+
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
 <br/>
 
-
 #### 微信支付
 -libraryjars libs/libammsdk.jar
-<br/><br/>
+<br/>
 
 ## 使用
-***
 * 实例化MPayBridge
 
-`		
-
+```		
         private void initMPay() {
         //只在支付宝支付起作用：设置是本地签名还是服务器签名
         MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;
@@ -65,14 +57,13 @@ Android 2.2+
             }
         });
     }
-`
+```
 
 
 * 支付宝 <br/>
 MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用：设置是本地签名还是服务器签名
-        
-`
 
+```
                 mPayBridge.setmPayAble(new MPayAli(this));
                 //手动签名
                 MPayAliModel mPayAliModel = new MPayAliModel();
@@ -89,41 +80,42 @@ MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用�
                 //                mPayAliModel.setPayInfo("服务器直接返回签名的信息");
                 mPayBridge.setPayParam(mPayAliModel);
                 mPayBridge.pay();                
-`
+```
 
-* 微信
-<br/>
+* 微信<br/>
 1) 先到[微信开发平台](https://open.weixin.qq.com "微信开发平台")注册相关信息，应用签名与包名必须注册[微信支付集成说明](https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=8_5 "微信支付集成说明")。<br/>
 2) 在注册的包名下创建包“wxapi”，然后创建类“WXPayEntryActivity”，并继承“MWeChatPayResultActivity”<br/>
 3) 在AndroidManifest.xml添加<br/>
-`		<activity
+```		
+<activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"/>
-`
+```
 
 4) 在onDestroy方法中将监听器移除 <br/>
-`mPayBridge.removeOnPayListener();`
+```
+mPayBridge.removeOnPayListener();
+```
 
-`
+```
 
                 mPayBridge.setmPayAble(new MPayWeChat(this));
                 MPayWeChatModel mPayWeChatModel = new MPayWeChatModel();
-                mPayWeChatModel.setAppId("wxd930ea5d5a258f4f");
-                mPayWeChatModel.setPartnerId("1900000109");
-                mPayWeChatModel.setPrepayId("1101000000140415649af9fc314aa427");
-                mPayWeChatModel.setNonceStr("1101000000140429eb40476f8896f4c9");
+                mPayWeChatModel.setAppId("appId");
+                mPayWeChatModel.setPartnerId("partnerId");
+                mPayWeChatModel.setPrepayId("prepayId");
+                mPayWeChatModel.setNonceStr("nonceStr");
                 mPayWeChatModel.setPackageValue("Sign=WXPay");
-                mPayWeChatModel.setTimeStamp("1398746574" + "");
-                						mPayWeChatModel.setSign("7FFECB600D7157C5AA49810D2D8F28BC2811827B");
+                mPayWeChatModel.setTimeStamp("timeStamp");
+                mPayWeChatModel.setSign("sign");
                 mPayBridge.setPayParam(mPayWeChatModel);
-                mPayBridge.pay();                
-`
+                mPayBridge.pay();                                
+```
 
-<br/><br/>
+<br/>
 
 ## 作者
-***
 莫先生 Mr-Mo 
 
 
