@@ -84,8 +84,7 @@ Android 2.2+
 
 * 支付宝 <br/>
 ```
-MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付
-宝支付起作用：设置是本地签名还是服务器签名
+MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用：设置是本地签名还是服务器签名
 ```
 
 ```
