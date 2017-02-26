@@ -8,6 +8,7 @@ Android 2.2+
 
 ## 混淆
 #### 支付宝支付
+```
 -libraryjars libs/alipaySdk-20160427.jar
 
 -keep class com.alipay.android.app.IAlixPay{*;}
@@ -16,13 +17,28 @@ Android 2.2+
 -keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
 -keep class com.alipay.sdk.app.PayTask{ public *;}
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
+```
 <br/>
 
 #### 微信支付
+```
 -libraryjars libs/libammsdk.jar
+```
 <br/>
 
 ## Gradle [下载aar](https://github.com/MrxMo/MPay/raw/master/release/mpaylib-v1.0.1-20170123.aar)
+
+在项目的gradle中添加
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+在app的gradle中添加
  ```
  compile 'com.github.MrxMo:MPay:v1.0.1'
  ```
@@ -67,7 +83,10 @@ Android 2.2+
 
 
 * 支付宝 <br/>
-MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用：设置是本地签名还是服务器签名
+```
+MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付
+宝支付起作用：设置是本地签名还是服务器签名
+```
 
 ```
 mPayBridge.setmPayAble(new MPayAli(this));
@@ -93,7 +112,7 @@ mPayBridge.pay();
 ```		
 <activity
 	android:name=".wxapi.WXPayEntryActivity"
-   android:exported="true"
+	android:exported="true"
 	android:launchMode="singleTop"/>
 ```
 
