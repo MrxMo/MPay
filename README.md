@@ -22,6 +22,12 @@ Android 2.2+
 -libraryjars libs/libammsdk.jar
 <br/>
 
+## Gradle [下载aar](https://github.com/MrxMo/MPay/raw/master/release/mpaylib-v1.0.1-20170123.aar)
+ ```
+ compile 'com.github.MrxMo:MPay:v1.0.1'
+ ```
+ <br/>
+
 ## 使用
 * 实例化MPayBridge
 
@@ -64,22 +70,20 @@ Android 2.2+
 MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用：设置是本地签名还是服务器签名
 
 ```
-                mPayBridge.setmPayAble(new MPayAli(this));
-                //手动签名
-                MPayAliModel mPayAliModel = new MPayAliModel();
-                mPayAliModel.setOrderId("商户网站唯一订单号");
-                mPayAliModel.setSubject("商品名称");
-                mPayAliModel.setBody("商品详情");
-                mPayAliModel.setPrice("商品金额 >= 0.01");
-                mPayAliModel.setNotifyUrl("服务器异步通知页面路径");
-
-                mPayAliModel.setPartnerId("签约合作者身份ID");
-                mPayAliModel.setSeller("签约卖家支付宝账号");
-                mPayAliModel.setRsaPrivateKey("商户私钥，pkcs8格式");
-                
-                //                mPayAliModel.setPayInfo("服务器直接返回签名的信息");
-                mPayBridge.setPayParam(mPayAliModel);
-                mPayBridge.pay();                
+mPayBridge.setmPayAble(new MPayAli(this));
+// 手动签名
+MPayAliModel mPayAliModel = new MPayAliModel();
+mPayAliModel.setOrderId("商户网站唯一订单号");
+mPayAliModel.setSubject("商品名称");
+mPayAliModel.setBody("商品详情");
+mPayAliModel.setPrice("商品金额 >= 0.01");
+mPayAliModel.setNotifyUrl("服务器异步通知页面路径");
+mPayAliModel.setPartnerId("签约合作者身份ID");
+mPayAliModel.setSeller("签约卖家支付宝账号");
+mPayAliModel.setRsaPrivateKey("商户私钥，pkcs8格式");
+// mPayAliModel.setPayInfo("服务器直接返回签名的信息");
+mPayBridge.setPayParam(mPayAliModel);
+mPayBridge.pay();                
 ```
 
 * 微信<br/>
@@ -88,9 +92,9 @@ MPayConfig.A_LI_PAY_SIGN_FROM_SERVICE = false;//只在支付宝支付起作用�
 3) 在AndroidManifest.xml添加<br/>
 ```		
 <activity
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop"/>
+	android:name=".wxapi.WXPayEntryActivity"
+   android:exported="true"
+	android:launchMode="singleTop"/>
 ```
 
 4) 在onDestroy方法中将监听器移除 <br/>
@@ -99,20 +103,18 @@ mPayBridge.removeOnPayListener();
 ```
 
 ```
-
-                mPayBridge.setmPayAble(new MPayWeChat(this));
-                MPayWeChatModel mPayWeChatModel = new MPayWeChatModel();
-                mPayWeChatModel.setAppId("appId");
-                mPayWeChatModel.setPartnerId("partnerId");
-                mPayWeChatModel.setPrepayId("prepayId");
-                mPayWeChatModel.setNonceStr("nonceStr");
-                mPayWeChatModel.setPackageValue("Sign=WXPay");
-                mPayWeChatModel.setTimeStamp("timeStamp");
-                mPayWeChatModel.setSign("sign");
-                mPayBridge.setPayParam(mPayWeChatModel);
-                mPayBridge.pay();                                
+mPayBridge.setmPayAble(new MPayWeChat(this));
+MPayWeChatModel mPayWeChatModel = new MPayWeChatModel();
+mPayWeChatModel.setAppId("appId");
+mPayWeChatModel.setPartnerId("partnerId");
+mPayWeChatModel.setPrepayId("prepayId");
+mPayWeChatModel.setNonceStr("nonceStr");
+mPayWeChatModel.setPackageValue("Sign=WXPay");
+mPayWeChatModel.setTimeStamp("timeStamp");
+mPayWeChatModel.setSign("sign");
+mPayBridge.setPayParam(mPayWeChatModel);
+mPayBridge.pay();                                
 ```
-
 <br/>
 
 ## 作者
